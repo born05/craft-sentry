@@ -2,7 +2,7 @@
     "name": "born05/craft-sentry",
     "description": "Pushes Craft CMS errors to Sentry.",
     "type": "craft-plugin",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "keywords": [
         "craft",
         "cms",
@@ -36,6 +36,7 @@
         "handle": "sentry-sdk",
         "hasCpSettings": false,
         "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/born05/craft-sentry/master/CHANGELOG.md"
+        "changelogUrl": "https://raw.githubusercontent.com/born05/craft-sentry/master/CHANGELOG.md",
+        "documentationUrl": "https://github.com/born05/craft-sentry/blob/master/README.md"
     }
 }
