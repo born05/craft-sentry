@@ -1,0 +1,41 @@
+{
+    "name": "born05/craft-sentry",
+    "description": "Pushes Craft CMS errors to Sentry.",
+    "type": "craft-plugin",
+    "version": "1.0.0-beta.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "sentry",
+        "sentry sdk"
+    ],
+    "support": {
+        "docs": "https://github.com/born05/craft-sentry/blob/master/README.md",
+        "issues": "https://github.com/born05/craft-sentry/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Born05",
+            "homepage": "https://www.born05.com/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.1",
+        "sentry/sdk": "^2.0.4"
+    },
+    "autoload": {
+        "psr-4": {
+          "born05\\sentry\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Sentry SDK",
+        "handle": "sentry-sdk",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/born05/craft-sentry/master/CHANGELOG.md"
+    }
+}
