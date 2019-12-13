@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.0.2 - 2019-12-13
+### Fixed
+- Downgraded sentry/sdk to prevent install errors
+
 ## 1.0.1 - 2019-12-12
 ### Change
 - Populate all captures with additional data.
