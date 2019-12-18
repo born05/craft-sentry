@@ -32,6 +32,10 @@ class Plugin extends CraftPlugin
         parent::init();
         self::$plugin = $this;
 
+        $this->setComponents([
+            'sentry' => SentryService::class,
+        ]);
+
         $app = Craft::$app;
         $info = $app->getInfo();
         $settings = $this->getSettings();
@@ -47,6 +51,7 @@ class Plugin extends CraftPlugin
             'dsn'         => $settings->clientDsn,
             'environment' => CRAFT_ENVIRONMENT,
             'release'     => $settings->release,
+            'default_integrations' => false,
         ]);
 
         $user = $app->getUser()->getIdentity();
@@ -69,6 +74,14 @@ class Plugin extends CraftPlugin
             $scope->setExtra('App Version (schema)', $info->schemaVersion);
             $scope->setExtra('PHP Version', phpversion());
         });
+
+        Event::on(
+            ErrorHandler::className(),
+            ErrorHandler::EVENT_BEFORE_HANDLE_EXCEPTION,
+            function(ExceptionEvent $event) {
+                $this->sentry->handleException($event->exception);
+            }
+        );
     }
 
     /**
