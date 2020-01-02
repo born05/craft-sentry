@@ -38,6 +38,7 @@ return [
 Based upon the sentry plugin by [Luke Youell](https://github.com/lukeyouell).
 
 ## License
-Copyright © 2019 [Born05](https://www.born05.com/)
+
+Copyright © [Born05](https://www.born05.com/)
 
 See [license](https://github.com/born05/craft-sentry/blob/master/LICENSE.md)
