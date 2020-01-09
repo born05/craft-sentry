@@ -1,5 +1,10 @@
 # Craft Sentry Changelog
 
+## 1.0.3 - 2020-01-09
+### Change
+- Let craft handle craft errors again for excludedCodes support.
+- Depend on enabled setting not on devMode
+
 ## 1.0.2 - 2019-12-13
 ### Fixed
 - Downgraded sentry/sdk to prevent install errors
