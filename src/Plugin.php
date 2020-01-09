@@ -47,13 +47,25 @@ class Plugin extends CraftPlugin
             return;
         }
 
-        Sentry\init([
+        /**
+         * Init Sentry
+         */
+        $options = [
             'dsn'         => $settings->clientDsn,
             'environment' => CRAFT_ENVIRONMENT,
             'release'     => $settings->release,
-            'default_integrations' => false,
-        ]);
+        ];
 
+        // ErrorHandler doens't fire on console
+        if (!Craft::$app->getRequest()->getIsConsoleRequest()) {
+            $options['default_integrations'] = false;
+        }
+
+        Sentry\init($options);
+
+        /**
+         * Setup user
+         */
         $user = $app->getUser()->getIdentity();
 
         Sentry\configureScope(function (Scope $scope) use ($app, $info, $settings, $user) {

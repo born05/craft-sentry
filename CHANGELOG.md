@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.0.4 - 2020-01-09
+### Added
+- Let sentry handle craft console errors
+
 ## 1.0.3 - 2020-01-09
 ### Change
 - Let craft handle craft errors again for excludedCodes support.
