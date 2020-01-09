@@ -2,7 +2,7 @@
     "name": "born05/craft-sentry",
     "description": "Pushes Craft CMS errors to Sentry.",
     "type": "craft-plugin",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "keywords": [
         "craft",
         "cms",
@@ -24,7 +24,7 @@
     ],
     "require": {
         "craftcms/cms": "^3.1",
-        "sentry/sdk": "^2.0.4"
+        "sentry/sdk": "^2.1.0"
     },
     "autoload": {
         "psr-4": {

@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.0.5 - 2020-01-09
+### Changed
+- Updated sentry/sdk to 2.1.0
+
 ## 1.0.4 - 2020-01-09
 ### Added
 - Let sentry handle craft console errors
