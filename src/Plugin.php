@@ -40,7 +40,7 @@ class Plugin extends CraftPlugin
         $info = $app->getInfo();
         $settings = $this->getSettings();
 
-        if (!$settings->enabled || $app->getConfig()->getGeneral()->devMode) return;
+        if (!$settings->enabled) return;
 
         if (!$settings->clientDsn) {
             Craft::error('Failed to report exception due to missing client key (DSN)', $this->handle);
