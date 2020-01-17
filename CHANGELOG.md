@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.0.6 - 2020-01-17
+### Fixes
+- Prevent errors during plugin install. Thanks to @boboldehampsink
+
 ## 1.0.5 - 2020-01-09
 ### Changed
 - Updated sentry/sdk to 2.1.0
