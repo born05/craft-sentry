@@ -32,68 +32,70 @@ class Plugin extends CraftPlugin
         parent::init();
         self::$plugin = $this;
 
-        $this->setComponents([
-            'sentry' => SentryService::class,
-        ]);
+        Event::on(Plugins::class, Plugins::EVENT_AFTER_LOAD_PLUGINS, function () {
+            $this->setComponents([
+                'sentry' => SentryService::class,
+            ]);
 
-        $app = Craft::$app;
-        $info = $app->getInfo();
-        $settings = $this->getSettings();
+            $app = Craft::$app;
+            $info = $app->getInfo();
+            $settings = $this->getSettings();
 
-        if (!$this->isInstalled || !$settings->enabled) return;
+            if (!$this->isInstalled || !$settings->enabled) return;
 
-        if (!$settings->clientDsn) {
-            Craft::error('Failed to report exception due to missing client key (DSN)', $this->handle);
-            return;
-        }
-
-        /**
-         * Init Sentry
-         */
-        $options = [
-            'dsn'         => $settings->clientDsn,
-            'environment' => CRAFT_ENVIRONMENT,
-            'release'     => $settings->release,
-        ];
-
-        // ErrorHandler doens't fire on console
-        if (!Craft::$app->getRequest()->getIsConsoleRequest()) {
-            $options['default_integrations'] = false;
-        }
-
-        Sentry\init($options);
-
-        /**
-         * Setup user
-         */
-        $user = $app->getUser()->getIdentity();
-
-        Sentry\configureScope(function (Scope $scope) use ($app, $info, $settings, $user) {
-            if ($user && !$settings->anonymous) {
-                $scope->setUser([
-                    'ID'       => $user->id,
-                    'Username' => $user->username,
-                    'Email'    => $user->email,
-                    'Admin'    => $user->admin ? 'Yes' : 'No',
-                ]);
+            if (!$settings->clientDsn) {
+                Craft::error('Failed to report exception due to missing client key (DSN)', $this->handle);
+                return;
             }
 
-            $scope->setExtra('App Type', 'Craft CMS');
-            $scope->setExtra('App Name', $info->name);
-            $scope->setExtra('App Edition (licensed)', $app->getLicensedEditionName());
-            $scope->setExtra('App Edition (running)', $app->getEditionName());
-            $scope->setExtra('App Version', $info->version);
-            $scope->setExtra('App Version (schema)', $info->schemaVersion);
-            $scope->setExtra('PHP Version', phpversion());
+            /**
+             * Init Sentry
+             */
+            $options = [
+                'dsn'         => $settings->clientDsn,
+                'environment' => CRAFT_ENVIRONMENT,
+                'release'     => $settings->release,
+            ];
+
+            // ErrorHandler doens't fire on console
+            if (!Craft::$app->getRequest()->getIsConsoleRequest()) {
+                $options['default_integrations'] = false;
+            }
+
+            Sentry\init($options);
+
+            /**
+             * Setup user
+             */
+            $user = $app->getUser()->getIdentity();
+
+            Sentry\configureScope(function (Scope $scope) use ($app, $info, $settings, $user) {
+                if ($user && !$settings->anonymous) {
+                    $scope->setUser([
+                        'ID'       => $user->id,
+                        'Username' => $user->username,
+                        'Email'    => $user->email,
+                        'Admin'    => $user->admin ? 'Yes' : 'No',
+                    ]);
+                }
+
+                $scope->setExtra('App Type', 'Craft CMS');
+                $scope->setExtra('App Name', $info->name);
+                $scope->setExtra('App Edition (licensed)', $app->getLicensedEditionName());
+                $scope->setExtra('App Edition (running)', $app->getEditionName());
+                $scope->setExtra('App Version', $info->version);
+                $scope->setExtra('App Version (schema)', $info->schemaVersion);
+                $scope->setExtra('PHP Version', phpversion());
+            });
+
+            Event::on(
+                ErrorHandler::className(),
+                ErrorHandler::EVENT_BEFORE_HANDLE_EXCEPTION,
+                function(ExceptionEvent $event) {
+                    $this->sentry->handleException($event->exception);
+                }
+            );
         });
-
-        Event::on(
-            ErrorHandler::className(),
-            ErrorHandler::EVENT_BEFORE_HANDLE_EXCEPTION,
-            function(ExceptionEvent $event) {
-                $this->sentry->handleException($event->exception);
-            }
-        );
     }
 
     /**
