@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.0.7 - 2020-10-16
+### Changed
+- Don't do anything until EVENT_AFTER_LOAD_PLUGINS. Thanks to @jamesedmonston
+
 ## 1.0.6 - 2020-01-17
 ### Fixes
 - Prevent errors during plugin install. Thanks to @boboldehampsink

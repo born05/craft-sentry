@@ -7,6 +7,7 @@ use born05\sentry\services\SentryService;
 use Craft;
 use craft\base\Plugin as CraftPlugin;
 use craft\events\ExceptionEvent;
+use craft\services\Plugins;
 use craft\web\ErrorHandler;
 
 use Sentry;
@@ -66,18 +67,22 @@ class Plugin extends CraftPlugin
         /**
          * Setup user
          */
-        $user = $app->getUser()->getIdentity();
+        Event::on(Plugins::class, Plugins::EVENT_AFTER_LOAD_PLUGINS, function () {
+            $user = $app->getUser()->getIdentity();
 
-        Sentry\configureScope(function (Scope $scope) use ($app, $info, $settings, $user) {
-            if ($user && !$settings->anonymous) {
-                $scope->setUser([
-                    'ID'       => $user->id,
-                    'Username' => $user->username,
-                    'Email'    => $user->email,
-                    'Admin'    => $user->admin ? 'Yes' : 'No',
-                ]);
-            }
+            Sentry\configureScope(function (Scope $scope) use ($settings, $user) {
+                if ($user && !$settings->anonymous) {
+                    $scope->setUser([
+                        'ID'       => $user->id,
+                        'Username' => $user->username,
+                        'Email'    => $user->email,
+                        'Admin'    => $user->admin ? 'Yes' : 'No',
+                    ]);
+                }
+            });
+        });
 
+        Sentry\configureScope(function (Scope $scope) use ($app, $info) {
             $scope->setExtra('App Type', 'Craft CMS');
             $scope->setExtra('App Name', $info->name);
             $scope->setExtra('App Edition (licensed)', $app->getLicensedEditionName());
