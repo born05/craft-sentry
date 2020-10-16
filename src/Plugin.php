@@ -7,6 +7,7 @@ use born05\sentry\services\SentryService;
 use Craft;
 use craft\base\Plugin as CraftPlugin;
 use craft\events\ExceptionEvent;
+use craft\services\Plugins;
 use craft\web\ErrorHandler;
 
 use Sentry;
