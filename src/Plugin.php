@@ -67,7 +67,7 @@ class Plugin extends CraftPlugin
         /**
          * Setup user
          */
-        Event::on(Plugins::class, Plugins::EVENT_AFTER_LOAD_PLUGINS, function () {
+        Event::on(Plugins::class, Plugins::EVENT_AFTER_LOAD_PLUGINS, function () use ($app, $settings) {
             $user = $app->getUser()->getIdentity();
 
             Sentry\configureScope(function (Scope $scope) use ($settings, $user) {
