@@ -1,5 +1,10 @@
 # Craft Sentry Changelog
 
+## 1.0.8 - 2020-11-02
+### Changed
+- Updated sentry/sdk to 3.1
+- Use the default integrations as much as possible for more info
+
 ## 1.0.7 - 2020-10-16
 ### Changed
 - Don't do anything until EVENT_AFTER_LOAD_PLUGINS. Thanks to @jamesedmonston
