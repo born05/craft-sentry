@@ -55,12 +55,18 @@ class Plugin extends CraftPlugin
             'dsn'         => $settings->clientDsn,
             'environment' => CRAFT_ENVIRONMENT,
             'release'     => $settings->release,
-        ];
 
-        // ErrorHandler doens't fire on console
-        if (!Craft::$app->getRequest()->getIsConsoleRequest()) {
-            $options['default_integrations'] = false;
-        }
+            // Prevent ExceptionListenerIntegration from loading.
+            'integrations' => static function (array $integrations) {
+                return array_filter($integrations, static function (\Sentry\Integration\IntegrationInterface $integration): bool {
+                    if ($integration instanceof \Sentry\Integration\ExceptionListenerIntegration) {
+                        return false;
+                    }
+
+                    return true;
+                });
+            },
+        ];
 
         Sentry\init($options);
 
