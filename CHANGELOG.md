@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.0.8.1 - 2020-11-03
+### Fixed
+- Fixed composer.json for composer 2
+
 ## 1.0.8 - 2020-11-02
 ### Changed
 - Updated sentry/sdk to 3.1
