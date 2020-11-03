@@ -2,7 +2,6 @@
     "name": "born05/craft-sentry",
     "description": "Pushes Craft CMS errors to Sentry.",
     "type": "craft-plugin",
-    "version": "1.0.8",
     "keywords": [
         "craft",
         "cms",
