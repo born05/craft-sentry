@@ -7,8 +7,10 @@ use born05\sentry\services\SentryService;
 use Craft;
 use craft\base\Plugin as CraftPlugin;
 use craft\events\ExceptionEvent;
+use craft\events\TemplateEvent;
 use craft\services\Plugins;
 use craft\web\ErrorHandler;
+use craft\web\View;
 
 use Sentry;
 use Sentry\State\Scope;
@@ -97,6 +99,41 @@ class Plugin extends CraftPlugin
             $scope->setExtra('App Version (schema)', $info->schemaVersion);
             $scope->setExtra('PHP Version', phpversion());
         });
+
+        /**
+         * Init Sentry JS SDK (Front end)
+         */
+        Event::on(
+            View::class,
+            View::EVENT_BEFORE_RENDER_TEMPLATE,
+            function (TemplateEvent $event) {
+
+                $settings = $this->getSettings();
+                $view = Craft::$app->getView();
+
+                if (Craft::$app->request->isSiteRequest && $settings->reportJsErrors) {
+                    $view->registerJsFile('https://browser.sentry-cdn.com/5.29.0/bundle.tracing.min.js', [
+                        'position' => 1,
+                        'crossorigin' => 'anonymous',
+                        'integrity' => 'sha384-XAhY32zqfuE8aJxn2jjoj70IiDlyteUPCkF97irXm5oFRdTYUHt+y6n2VLZwBPok',
+                    ]);
+
+                    // Returns devMode boolean as a string so it can be passed to the debug parameter properly.
+                    $isDevMode = Craft::$app->config->general->devMode ? 'true' : 'false';
+
+                    $view->registerJs("
+                    Sentry.init({
+                      dsn: '$settings->clientDsn',
+                      release: '$settings->release',
+                      environment: '".CRAFT_ENVIRONMENT."',
+                      debug: $isDevMode,
+                      integrations: [new Sentry.Integrations.BrowserTracing()],
+                      tracesSampleRate: 1.0,
+                    });", 1);
+
+                }
+            }
+        );
 
         Event::on(
             ErrorHandler::className(),
