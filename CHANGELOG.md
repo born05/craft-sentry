@@ -1,7 +1,7 @@
 # Craft Sentry Changelog
 
-## 1.0.9 - 2020-12-08
-- Implement Sentry JavaScript SDK for site front end requests
+## 1.0.9 - 2020-12-17
+- Implement Sentry JavaScript SDK for site front end requests. Thanks to @jamesmacwhite
 - Init Sentry JS SDK with debug option mapped to Craft devMode setting
 - New `reportJsErrors` config option for enabling JS error reporting
 - Removed old reference in README about Sentry being disabled with devMode on (no longer valid)
