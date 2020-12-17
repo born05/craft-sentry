@@ -103,19 +103,18 @@ class Plugin extends CraftPlugin
         /**
          * Init Sentry JS SDK (Front end)
          */
-        Event::on(
-            View::class,
-            View::EVENT_BEFORE_RENDER_TEMPLATE,
-            function (TemplateEvent $event) {
+        if (Craft::$app->request->isSiteRequest && $settings->reportJsErrors) {
+            Event::on(
+                View::class,
+                View::EVENT_BEFORE_RENDER_TEMPLATE,
+                function (TemplateEvent $event) {
+                    $settings = $this->getSettings();
+                    $view = Craft::$app->getView();
 
-                $settings = $this->getSettings();
-                $view = Craft::$app->getView();
-
-                if (Craft::$app->request->isSiteRequest && $settings->reportJsErrors) {
-                    $view->registerJsFile('https://browser.sentry-cdn.com/5.29.0/bundle.tracing.min.js', [
+                    $view->registerJsFile('https://browser.sentry-cdn.com/5.29.1/bundle.tracing.min.js', [
                         'position' => 1,
                         'crossorigin' => 'anonymous',
-                        'integrity' => 'sha384-XAhY32zqfuE8aJxn2jjoj70IiDlyteUPCkF97irXm5oFRdTYUHt+y6n2VLZwBPok',
+                        'integrity' => 'sha384-oMewZ7UOLvGpEKmWrXEBuQZA7ftGffl8JUn8O1yhF41YQdhxpVAMP0y0e83AWhDL',
                     ]);
 
                     // Returns devMode boolean as a string so it can be passed to the debug parameter properly.
@@ -130,11 +129,13 @@ class Plugin extends CraftPlugin
                       integrations: [new Sentry.Integrations.BrowserTracing()],
                       tracesSampleRate: 1.0,
                     });", 1);
-
                 }
-            }
-        );
+            );
+        }
 
+        /**
+         * Listen to exceptions
+         */
         Event::on(
             ErrorHandler::className(),
             ErrorHandler::EVENT_BEFORE_HANDLE_EXCEPTION,
