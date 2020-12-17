@@ -11,11 +11,12 @@ class Settings extends Model
     public $clientDsn;
     public $excludedCodes = ['404'];
     public $release; // Release number/name used by sentry.
+    public $reportJsErrors = false;
 
     public function rules()
     {
         return [
-            [['enabled', 'anonymous'], 'boolean'],
+            [['enabled', 'anonymous', 'reportJsErrors'], 'boolean'],
             [['clientDsn', 'excludedCodes', 'release'], 'string'],
             [['clientDsn'], 'required'],
         ];
