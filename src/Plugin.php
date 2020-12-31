@@ -111,16 +111,20 @@ class Plugin extends CraftPlugin
                     $settings = $this->getSettings();
                     $view = Craft::$app->getView();
 
-                    $view->registerJsFile('https://browser.sentry-cdn.com/5.29.1/bundle.tracing.min.js', [
-                        'position' => 1,
-                        'crossorigin' => 'anonymous',
-                        'integrity' => 'sha384-oMewZ7UOLvGpEKmWrXEBuQZA7ftGffl8JUn8O1yhF41YQdhxpVAMP0y0e83AWhDL',
-                    ]);
+                    $view->registerScript(
+                        "",
+                        View::POS_END,
+                        array_merge([
+                            'src' => 'https://browser.sentry-cdn.com/5.29.2/bundle.tracing.min.js',
+                            'crossorigin' => 'anonymous',
+                            'integrity' => 'sha384-4zxA5Bnxor/VkZae20EqPP3A/6vDlw1ZhqF7EvpmeTfWYFjPIDdaUSOk/q7G/bYw',
+                        ], $this->getScriptOptions()),
+                    );
 
                     // Returns devMode boolean as a string so it can be passed to the debug parameter properly.
                     $isDevMode = Craft::$app->config->general->devMode ? 'true' : 'false';
 
-                    $view->registerJs("
+                    $view->registerScript("
                     Sentry.init({
                       dsn: '$settings->clientDsn',
                       release: '$settings->release',
@@ -128,7 +132,7 @@ class Plugin extends CraftPlugin
                       debug: $isDevMode,
                       integrations: [new Sentry.Integrations.BrowserTracing()],
                       tracesSampleRate: 1.0,
-                    });", 1);
+                    });", View::POS_END, $this->getScriptOptions());
                 }
             );
         }
@@ -143,6 +147,16 @@ class Plugin extends CraftPlugin
                 $this->sentry->handleException($event->exception);
             }
         );
+    }
+
+    private function getScriptOptions() {
+        $options = [];
+        
+        if (class_exists('\born05\contentsecuritypolicy\Plugin')) {
+            $options['nonce'] = \born05\contentsecuritypolicy\Plugin::$plugin->headers->registerNonce('script-src');
+        }
+
+        return $options;
     }
 
     /**

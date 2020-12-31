@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.0.10 - 2020-12-31
+- Added CSP nonce support using https://github.com/born05/craft-csp
+- Updated Sentry JS SDK
+
 ## 1.0.9 - 2020-12-17
 - Implement Sentry JavaScript SDK for site front end requests. Thanks to @jamesmacwhite
 - Init Sentry JS SDK with debug option mapped to Craft devMode setting
