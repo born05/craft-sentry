@@ -118,7 +118,7 @@ class Plugin extends CraftPlugin
                             'src' => 'https://browser.sentry-cdn.com/5.29.2/bundle.tracing.min.js',
                             'crossorigin' => 'anonymous',
                             'integrity' => 'sha384-4zxA5Bnxor/VkZae20EqPP3A/6vDlw1ZhqF7EvpmeTfWYFjPIDdaUSOk/q7G/bYw',
-                        ], $this->getScriptOptions()),
+                        ], $this->getScriptOptions())
                     );
 
                     // Returns devMode boolean as a string so it can be passed to the debug parameter properly.
