@@ -1,5 +1,8 @@
 # Craft Sentry Changelog
 
+## 1.0.10.1 - 2021-01-07
+- Fix PHP parsing error. Thanks to @cgivord
+
 ## 1.0.10 - 2020-12-31
 - Added CSP nonce support using https://github.com/born05/craft-csp
 - Updated Sentry JS SDK
