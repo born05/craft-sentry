@@ -1,5 +1,8 @@
 # Craft Sentry Changelog
 
+## 1.0.11 - 2021-01-15
+- Added getSentry method and docblock. Thanks to @joshuabaker
+
 ## 1.0.10.1 - 2021-01-07
 - Fix PHP parsing error. Thanks to @cgivord
 

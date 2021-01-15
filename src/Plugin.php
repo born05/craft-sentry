@@ -17,6 +17,12 @@ use Sentry\State\Scope;
 
 use yii\base\Event;
 
+/**
+ * Sentry craft cms plugin
+ *
+ * @property SentryService $sentry The sentry component
+ * @method SentryService getSentry()      Returns the sentry component.
+ */
 class Plugin extends CraftPlugin
 {
     /**
