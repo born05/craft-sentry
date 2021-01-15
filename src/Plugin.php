@@ -149,6 +149,14 @@ class Plugin extends CraftPlugin
         );
     }
 
+    /**
+     * @return SentryService
+     */
+    public function getSentry(): SentryService
+    {
+        return $this->sentry;
+    }
+
     private function getScriptOptions() {
         $options = [];
         
