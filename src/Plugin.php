@@ -137,7 +137,7 @@ class Plugin extends CraftPlugin
                       environment: '".CRAFT_ENVIRONMENT."',
                       debug: $isDevMode,
                       integrations: [new Sentry.Integrations.BrowserTracing()],
-                      tracesSampleRate: 1.0,
+                      tracesSampleRate: $settings->sampleRate,
                     });", View::POS_END, $this->getScriptOptions());
                 }
             );
