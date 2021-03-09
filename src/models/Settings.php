@@ -20,7 +20,7 @@ class Settings extends Model
             [['enabled', 'anonymous', 'reportJsErrors'], 'boolean'],
             [['clientDsn', 'excludedCodes', 'release'], 'string'],
             [['clientDsn'], 'required'],
-            [['sampleRate'], 'number'],
+            [['sampleRate'], 'number', 'min' => 0, 'max' => 1],
         ];
     }
 }
