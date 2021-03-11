@@ -1,5 +1,8 @@
 # Craft Sentry Changelog
 
+## 1.0.12 - 2021-03-11
+- Added sampleRate config option. Thanks to @brianjhanson
+
 ## 1.0.11 - 2021-01-15
 - Added getSentry method and docblock. Thanks to @joshuabaker
 

@@ -60,9 +60,9 @@ class Plugin extends CraftPlugin
          * Init Sentry
          */
         $options = [
-            'dsn'         => $settings->clientDsn,
-            'environment' => CRAFT_ENVIRONMENT,
-            'release'     => $settings->release,
+            'dsn'                => $settings->clientDsn,
+            'environment'        => CRAFT_ENVIRONMENT,
+            'release'            => $settings->release,
             'traces_sample_rate' => $settings->sampleRate,
 
             // Prevent ExceptionListenerIntegration from loading.
