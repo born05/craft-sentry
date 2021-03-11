@@ -12,6 +12,7 @@ class Settings extends Model
     public $excludedCodes = ['404'];
     public $release; // Release number/name used by sentry.
     public $reportJsErrors = false;
+    public $sampleRate = 1.0;
 
     public function rules()
     {
@@ -19,6 +20,7 @@ class Settings extends Model
             [['enabled', 'anonymous', 'reportJsErrors'], 'boolean'],
             [['clientDsn', 'excludedCodes', 'release'], 'string'],
             [['clientDsn'], 'required'],
+            [['sampleRate'], 'number', 'min' => 0, 'max' => 1],
         ];
     }
 }

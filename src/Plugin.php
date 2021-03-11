@@ -63,6 +63,7 @@ class Plugin extends CraftPlugin
             'dsn'         => $settings->clientDsn,
             'environment' => CRAFT_ENVIRONMENT,
             'release'     => $settings->release,
+            'traces_sample_rate' => $settings->sampleRate,
 
             // Prevent ExceptionListenerIntegration from loading.
             'integrations' => static function (array $integrations) {
@@ -137,7 +138,7 @@ class Plugin extends CraftPlugin
                       environment: '".CRAFT_ENVIRONMENT."',
                       debug: $isDevMode,
                       integrations: [new Sentry.Integrations.BrowserTracing()],
-                      tracesSampleRate: 1.0,
+                      tracesSampleRate: $settings->sampleRate,
                     });", View::POS_END, $this->getScriptOptions());
                 }
             );
@@ -165,7 +166,7 @@ class Plugin extends CraftPlugin
 
     private function getScriptOptions() {
         $options = [];
-        
+
         if (class_exists('\born05\contentsecuritypolicy\Plugin')) {
             $options['nonce'] = \born05\contentsecuritypolicy\Plugin::$plugin->headers->registerNonce('script-src');
         }
