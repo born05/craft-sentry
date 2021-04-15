@@ -64,9 +64,11 @@ class Plugin extends CraftPlugin
             'environment'        => CRAFT_ENVIRONMENT,
             'release'            => $settings->release,
             'traces_sample_rate' => $settings->sampleRate,
+        ];
 
+        if (!Craft::$app->request->getIsConsoleRequest()) {
             // Prevent ExceptionListenerIntegration from loading.
-            'integrations' => static function (array $integrations) {
+            $options['integrations'] = static function (array $integrations) {
                 return array_filter($integrations, static function (\Sentry\Integration\IntegrationInterface $integration): bool {
                     if ($integration instanceof \Sentry\Integration\ExceptionListenerIntegration) {
                         return false;
@@ -74,8 +76,8 @@ class Plugin extends CraftPlugin
 
                     return true;
                 });
-            },
-        ];
+            };
+        }
 
         Sentry\init($options);
 

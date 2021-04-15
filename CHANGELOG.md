@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.1.0 - 2021-04-15
+### Added
+- Console errors are now captured.
+
 ## 1.0.12 - 2021-03-11
 - Added sampleRate config option. Thanks to @brianjhanson
 
