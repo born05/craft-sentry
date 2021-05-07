@@ -13,11 +13,12 @@ class Settings extends Model
     public $release; // Release number/name used by sentry.
     public $reportJsErrors = false;
     public $sampleRate = 1.0;
+    public $autoSessionTracking = false;
 
     public function rules()
     {
         return [
-            [['enabled', 'anonymous', 'reportJsErrors'], 'boolean'],
+            [['enabled', 'anonymous', 'reportJsErrors', 'autoSessionTracking'], 'boolean'],
             [['clientDsn', 'excludedCodes', 'release'], 'string'],
             [['clientDsn'], 'required'],
             [['sampleRate'], 'number', 'min' => 0, 'max' => 1],

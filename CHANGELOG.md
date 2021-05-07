@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.1.1 - 2021-05-07
+### Added
+- Added `autoSessionTracking` support.
+
 ## 1.1.0 - 2021-04-15
 ### Added
 - Console errors are now captured.
