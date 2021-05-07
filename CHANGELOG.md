@@ -4,6 +4,9 @@
 ### Added
 - Added `autoSessionTracking` support.
 
+### Change
+- Updated sentry js client from 5.29.2 to 6.3.5
+
 ## 1.1.0 - 2021-04-15
 ### Added
 - Console errors are now captured.

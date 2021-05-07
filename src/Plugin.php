@@ -124,9 +124,9 @@ class Plugin extends CraftPlugin
                         "",
                         View::POS_END,
                         array_merge([
-                            'src' => 'https://browser.sentry-cdn.com/5.29.2/bundle.tracing.min.js',
+                            'src' => 'https://browser.sentry-cdn.com/6.3.5/bundle.tracing.min.js',
                             'crossorigin' => 'anonymous',
-                            'integrity' => 'sha384-4zxA5Bnxor/VkZae20EqPP3A/6vDlw1ZhqF7EvpmeTfWYFjPIDdaUSOk/q7G/bYw',
+                            'integrity' => 'sha384-0RpBr4PNjUAqckh8BtmPUuFGNC082TAztkL1VE2ttmtsYJBUvqcZbThnfE5On6h1',
                         ], $this->getScriptOptions())
                     );
 
