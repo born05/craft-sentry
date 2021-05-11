@@ -11,14 +11,15 @@ class Settings extends Model
     public $clientDsn;
     public $excludedCodes = ['404'];
     public $release; // Release number/name used by sentry.
-    public $reportJsErrors = false;
-    public $sampleRate = 1.0;
-    public $autoSessionTracking = false;
+    public $reportJsErrors = false; // Client only option
+    public $sampleRate = 1.0; // Client only option
+    public $performanceMonitoring = true; // Client only option
+    public $autoSessionTracking = false; // Client only option
 
     public function rules()
     {
         return [
-            [['enabled', 'anonymous', 'reportJsErrors', 'autoSessionTracking'], 'boolean'],
+            [['enabled', 'anonymous', 'reportJsErrors', 'performanceMonitoring', 'autoSessionTracking'], 'boolean'],
             [['clientDsn', 'excludedCodes', 'release'], 'string'],
             [['clientDsn'], 'required'],
             [['sampleRate'], 'number', 'min' => 0, 'max' => 1],

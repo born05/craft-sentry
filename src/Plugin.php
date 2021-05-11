@@ -133,14 +133,15 @@ class Plugin extends CraftPlugin
                     // Returns devMode boolean as a string so it can be passed to the debug parameter properly.
                     $isDevMode = Craft::$app->config->general->devMode ? 'true' : 'false';
                     $autoSessionTracking = $settings->autoSessionTracking ? 'true' : 'false';
-
+                    $performanceMonitoring = $settings->performanceMonitoring ? 'integrations: [new Sentry.Integrations.BrowserTracing()],' : '';
+                    
                     $view->registerScript("
                     Sentry.init({
                       dsn: '$settings->clientDsn',
                       release: '$settings->release',
                       environment: '".CRAFT_ENVIRONMENT."',
                       debug: $isDevMode,
-                      integrations: [new Sentry.Integrations.BrowserTracing()],
+                      $performanceMonitoring
                       tracesSampleRate: $settings->sampleRate,
                       autoSessionTracking: $autoSessionTracking
                     });", View::POS_END, $this->getScriptOptions());

@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 1.1.2 - 2021-05-11
+### Change
+- Make `performanceMonitoring` optional
+
 ## 1.1.1 - 2021-05-07
 ### Added
 - Added `autoSessionTracking` support.
