@@ -31,7 +31,7 @@ class Plugin extends CraftPlugin
      *
      * @var Plugin
      */
-    public static $plugin;
+    public static Plugin $plugin;
 
     /**
      * @inheritdoc
@@ -101,7 +101,7 @@ class Plugin extends CraftPlugin
 
         Sentry\configureScope(function (Scope $scope) use ($app, $info) {
             $scope->setExtra('App Type', 'Craft CMS');
-            $scope->setExtra('App Name', $info->name);
+            $scope->setExtra('App Name', getenv('APP_ID') ? getenv('APP_ID') : $app->name);
             $scope->setExtra('App Edition (licensed)', $app->getLicensedEditionName());
             $scope->setExtra('App Edition (running)', $app->getEditionName());
             $scope->setExtra('App Version', $info->version);
@@ -153,7 +153,7 @@ class Plugin extends CraftPlugin
          * Listen to exceptions
          */
         Event::on(
-            ErrorHandler::className(),
+            ErrorHandler::class,
             ErrorHandler::EVENT_BEFORE_HANDLE_EXCEPTION,
             function(ExceptionEvent $event) {
                 $this->sentry->handleException($event->exception);
@@ -161,15 +161,12 @@ class Plugin extends CraftPlugin
         );
     }
 
-    /**
-     * @return SentryService
-     */
     public function getSentry(): SentryService
     {
         return $this->sentry;
     }
 
-    private function getScriptOptions() {
+    private function getScriptOptions(): array {
         $options = [];
 
         if (class_exists('\born05\contentsecuritypolicy\Plugin')) {
@@ -182,7 +179,7 @@ class Plugin extends CraftPlugin
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): Settings
     {
         return new Settings();
     }

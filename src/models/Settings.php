@@ -16,7 +16,7 @@ class Settings extends Model
     public $performanceMonitoring = true; // Client only option
     public $autoSessionTracking = false; // Client only option
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['enabled', 'anonymous', 'reportJsErrors', 'performanceMonitoring', 'autoSessionTracking'], 'boolean'],

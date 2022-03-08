@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## 2.0.0-beta.1 - 2022-03-08
+### Changed
+- Added craft 4 support
+
 ## 1.1.2 - 2021-05-11
 ### Change
 - Make `performanceMonitoring` optional
