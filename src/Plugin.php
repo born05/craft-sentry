@@ -61,7 +61,7 @@ class Plugin extends CraftPlugin
          */
         $options = [
             'dsn'                => $settings->clientDsn,
-            'environment'        => CRAFT_ENVIRONMENT,
+            'environment'        => getenv('CRAFT_ENVIRONMENT'),
             'release'            => $settings->release,
             'traces_sample_rate' => $settings->sampleRate,
         ];
