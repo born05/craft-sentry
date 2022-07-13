@@ -1,4 +1,4 @@
-# Sentry plugin for Craft CMS 3
+# Sentry plugin for Craft CMS 4
 
 Pushes Craft CMS errors to [Sentry](https://sentry.io/).
 
@@ -15,8 +15,8 @@ Pushes Craft CMS errors to [Sentry](https://sentry.io/).
 3. Create a config file as explained below.
 
 ## Requirements
-- Craft 3.1 or later
-- PHP 7.1 at least
+- Craft 4.0.0 and up
+- PHP 8.0.2 and up
 
 ## Configuring Sentry
 Create a `config/sentry-sdk.php` config file with the following contents:

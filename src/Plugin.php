@@ -5,10 +5,11 @@ use born05\sentry\models\Settings;
 use born05\sentry\services\SentryService;
 
 use Craft;
+use craft\helpers\App;
+use craft\web\Application as WebApplication;
 use craft\base\Plugin as CraftPlugin;
 use craft\events\ExceptionEvent;
 use craft\events\TemplateEvent;
-use craft\services\Plugins;
 use craft\web\ErrorHandler;
 use craft\web\View;
 
@@ -61,7 +62,7 @@ class Plugin extends CraftPlugin
          */
         $options = [
             'dsn'                => $settings->clientDsn,
-            'environment'        => CRAFT_ENVIRONMENT,
+            'environment'        => App::env('CRAFT_ENVIRONMENT'),
             'release'            => $settings->release,
             'traces_sample_rate' => $settings->sampleRate,
         ];
@@ -84,7 +85,7 @@ class Plugin extends CraftPlugin
         /**
          * Setup user
          */
-        Event::on(Plugins::class, Plugins::EVENT_AFTER_LOAD_PLUGINS, function () use ($app, $settings) {
+        Event::on(WebApplication::class, WebApplication::EVENT_INIT, function () use ($app, $settings) {
             $user = $app->getUser()->getIdentity();
 
             Sentry\configureScope(function (Scope $scope) use ($settings, $user) {
@@ -101,7 +102,7 @@ class Plugin extends CraftPlugin
 
         Sentry\configureScope(function (Scope $scope) use ($app, $info) {
             $scope->setExtra('App Type', 'Craft CMS');
-            $scope->setExtra('App Name', getenv('APP_ID') ? getenv('APP_ID') : $app->name);
+            $scope->setExtra('App Name', App::env('CRAFT_APP_ID') ? App::env('CRAFT_APP_ID') : $app->name);
             $scope->setExtra('App Edition (licensed)', $app->getLicensedEditionName());
             $scope->setExtra('App Edition (running)', $app->getEditionName());
             $scope->setExtra('App Version', $info->version);
@@ -139,7 +140,7 @@ class Plugin extends CraftPlugin
                     Sentry.init({
                       dsn: '$settings->clientDsn',
                       release: '$settings->release',
-                      environment: '".CRAFT_ENVIRONMENT."',
+                      environment: '".App::env('CRAFT_ENVIRONMENT')."',
                       debug: $isDevMode,
                       $performanceMonitoring
                       tracesSampleRate: $settings->sampleRate,

@@ -1,5 +1,11 @@
 # Craft Sentry Changelog
 
+## 2.0.0 - 2022-07-13
+### Changed
+- Fixed craft 4 support
+- Use `CRAFT_APP_ID` env instead of `APP_ID` env.
+- Use `CRAFT_ENVIRONMENT` env instead of the `CRAFT_ENVIRONMENT` constant.
+
 ## 2.0.0-beta.1 - 2022-03-08
 ### Changed
 - Added craft 4 support
