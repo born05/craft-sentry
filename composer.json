@@ -38,5 +38,11 @@
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/born05/craft-sentry/master/CHANGELOG.md",
         "documentationUrl": "https://github.com/born05/craft-sentry/blob/master/README.md"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
     }
 }
