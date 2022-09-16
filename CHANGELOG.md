@@ -1,8 +1,8 @@
 # Craft Sentry Changelog
 
-## Unreleased
+## 2.0.1 - 2022-09-16
 ### Changed
-- If the exception is a Twig Runtime exception, use the previous one instead.
+- If the exception is a Twig Runtime exception, use the previous one instead. Thanks to @kringkaste
 
 ## 2.0.0 - 2022-07-13
 ### Changed
