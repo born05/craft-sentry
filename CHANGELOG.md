@@ -1,5 +1,9 @@
 # Craft Sentry Changelog
 
+## Unreleased
+### Changed
+- If the exception is a Twig Runtime exception, use the previous one instead.
+
 ## 2.0.0 - 2022-07-13
 ### Changed
 - Fixed craft 4 support
