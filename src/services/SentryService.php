@@ -8,6 +8,7 @@ use Craft;
 use craft\base\Component;
 
 use Sentry;
+use Twig\Error\RuntimeError as TwigRuntimeError;
 
 class SentryService extends Component
 {
@@ -15,6 +16,11 @@ class SentryService extends Component
     {
         $plugin = SentryPlugin::$plugin;
         $settings = $plugin->getSettings();
+
+        // If this is a Twig Runtime exception, use the previous one instead
+        if ($exception instanceof TwigRuntimeError && ($previousException = $exception->getPrevious()) !== null) {
+            $exception = $previousException;
+        }
 
         $statusCode = $exception->statusCode ?? null;
 
