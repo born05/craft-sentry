@@ -15,6 +15,7 @@ class Settings extends Model
     public $sampleRate = 1.0; // Client only option
     public $performanceMonitoring = true; // Client only option
     public $autoSessionTracking = false; // Client only option
+    public $sensitiveFields; // Fields containing sensitive data in request
 
     public function rules()
     {
