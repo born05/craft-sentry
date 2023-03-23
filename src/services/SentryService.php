@@ -34,4 +34,22 @@ class SentryService extends Component
 
         Sentry\captureException($exception);
     }
+
+    public function initDataScrubbing($sensitiveFields, &$options)
+    {
+        $options['before_send'] =  function (Sentry\Event $event) use ($sensitiveFields) {
+            $replaceValue = '[Filtered]';
+            $request = $event->getRequest();
+
+            if(isset($request['data'])) {
+                foreach ($sensitiveFields as $sensitiveField) {
+                    if(is_string($sensitiveField) && isset($request['data'][$sensitiveField])) {
+                        $request['data'][$sensitiveField] = $replaceValue;
+                    }
+                }
+            }
+            $event->setRequest($request);
+            return $event;
+        };
+    }
 }

@@ -79,6 +79,10 @@ class Plugin extends CraftPlugin
             };
         }
 
+        if ($settings->sensitiveFields && is_array($settings->sensitiveFields)) {
+            $this->sentry->initDataScrubbing($settings->sensitiveFields, $options);
+        }
+
         Sentry\init($options);
 
         /**
