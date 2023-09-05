@@ -128,6 +128,7 @@ class Plugin extends CraftPlugin
                             'src' => 'https://browser.sentry-cdn.com/6.3.5/bundle.tracing.min.js',
                             'crossorigin' => 'anonymous',
                             'integrity' => 'sha384-0RpBr4PNjUAqckh8BtmPUuFGNC082TAztkL1VE2ttmtsYJBUvqcZbThnfE5On6h1',
+                            'data-cookieconsent' => 'ignore',
                         ], $this->getScriptOptions())
                     );
 
